@@ -26,13 +26,15 @@ fn main() {
 
     let x = 5;                      // x comes into scope
 
-    makes_copy(x);                  // because i32 implements the Copy trait,
+    // makes_copy(x);                  // because i32 implements the Copy trait,
                                     // x does NOT move into the function,
-    println!("{}", x);              // so it's okay to use x afterward
+    // println!("{}", x);              // so it's okay to use x afterward
 
     // Mais on peut utiliser x car i32 est un type qui implémente le trait Copy
-    println!("La valeur de x : {x}");
+    // println!("La valeur de x : {x}");
     // ownership();
+
+    sort_array();
 }
 
 // By The Book of Rust Learn @BioKobena
@@ -143,37 +145,65 @@ fn main() {
 
 // Part 4.1 : Ownership
 // (la plus grande différence entre Rust et les autres langages de programmation qui proposent soit des garbage collector ou des références counting) @BioKobena
-fn ownership() {
-    {
-        // s is not valid here, it’s not yet declared
-        let s = "hello"; // s is valid from this point forward
-        println!("La valeur de s : {s}");
-        // do stuff with s
-    } // this scope is now over, and s is no longer valid
+// fn ownership() {
+//     {
+//         // s is not valid here, it’s not yet declared
+//         let s = "hello"; // s is valid from this point forward
+//         println!("La valeur de s : {s}");
+//         // do stuff with s
+//     } // this scope is now over, and s is no longer valid
 
 
-    let mut s = String::from("Hello");
-    s.push_str(", world!");
-    println!("La valeur de s : {s}");
+//     let mut s = String::from("Hello");
+//     s.push_str(", world!");
+//     println!("La valeur de s : {s}");
 
 
 
-    let x = 5;
-    let y = x;
-    println!("La valeur de x : {x}, la valeur de y : {y}"); 
+//     let x = 5;
+//     let y = x;
+//     println!("La valeur de x : {x}, la valeur de y : {y}"); 
 
-    // let s1 = String::from("hello");
-    // let s2 = s1;
-    // println!("La valeur de s1 : {s1}, la valeur de s2 : {s2}"); // Cela va générer une erreur car s1 n'est plus valide après l'assignation à s2
+//     // let s1 = String::from("hello");
+//     // let s2 = s1;
+//     // println!("La valeur de s1 : {s1}, la valeur de s2 : {s2}"); // Cela va générer une erreur car s1 n'est plus valide après l'assignation à s2
 
 
-    // On va utiliser la méthode clone pour faire une copie de la valeur de s1 dans s2
-     let s1 = String::from("hello");
-    let s2 = s1.clone();
-    println!("La valeur de s1 : {s1}, la valeur de s2 : {s2}"); // Cela va générer une erreur car s1 n'est plus valide après l'assignation à s2
+//     // On va utiliser la méthode clone pour faire une copie de la valeur de s1 dans s2
+//      let s1 = String::from("hello");
+//     let s2 = s1.clone();
+//     println!("La valeur de s1 : {s1}, la valeur de s2 : {s2}"); // Cela va générer une erreur car s1 n'est plus valide après l'assignation à s2
 
-    let mut s = String::from("hello");
-    s = String::from("ahoy");
+//     let mut s = String::from("hello");
+//     s = String::from("ahoy");
 
-    println!("{s}, world!");
+//     println!("{s}, world!");
+// }
+
+
+// fn first_word(s:&String){
+//     let bytes = s.as_string();
+
+// }
+
+
+fn sort_array(){
+    let mut arr = [50, 20, 1, 4, 3, 12, 11, 5];
+
+    let mut i = 0;
+
+    while i<arr.len() {
+        let mut j = 0;
+        while j <arr.len(){
+            if arr[i] < arr[j]{
+                let tampon = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tampon;
+            }
+            j += 1;
+        }
+        i += 1;
+    }
+
+    println!("{:?} tableau trié", arr);
 }
